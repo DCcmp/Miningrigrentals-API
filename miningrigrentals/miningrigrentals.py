@@ -109,19 +109,19 @@ class API:
         """
         return self._api_call(WHOAMI)
 
-    def get_algos(self):
+    def get_info_algos(self):
         """
         GET /info/algos
         """
         return self._api_call(ALGOS)
 
-    def get_servers(self):
+    def get_info_servers(self):
         """
         GET /info/servers
         """
         return self._api_call(SERVERS)
 
-    def get_algo(self, algoname):
+    def get_info_algo(self, algoname):
         """
         GET /info/algos/[NAME]
         """
