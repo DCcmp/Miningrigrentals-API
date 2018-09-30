@@ -1,7 +1,7 @@
 # Miningrigrentals-API
 Python3 API wrapper class for https://miningrigrentals.com
 
-<b>How-To:<b></br>
+<b>How-To:</b></br>
 
 example:
 
