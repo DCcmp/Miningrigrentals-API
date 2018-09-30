@@ -8,10 +8,6 @@ import requests
 
 __author__ = "DJC @ https://coinminingpool.org"
 
-
-api_key = 'x'  # YOUR APIKEY
-api_secret = 'x'  # YOUR APISECRET
-
 BASEURL = 'https://www.miningrigrentals.com/api/v2'
 
 # API ENDPOINTS
@@ -75,7 +71,7 @@ class API:
 
     def _build_headers(self, signature):
         return {XAPISIGN: signature,
-                XAPIKEY: api_key,
+                XAPIKEY: self.key,
                 XAPINONCE: str(self.nonce)}
 
     def _api_call(self, endpoint, params=None, request=None):
