@@ -4,18 +4,17 @@ Python3 API wrapper class for https://miningrigrentals.com
 <b>How-To:<b><br>
 
 example:
-<code>
 
-
-
+```python
 from miningrigrentals import miningrigrentals
 
-mrr = miningrigrentals('<API-KEY>','<API-SECRET>')
+APIKEY = "YOUR API KEY"
+APISECRET = "YOUR API SECRET"
+
+mrr = miningrigrentals.API(APIKEY, APISECRET)
 
 servers = mrr.get_info_servers() #  Get a list of MRR rig servers.
 
-x11_servers = mrr.get_info_algo('x11'') #  Get statistics for an algo (suggested price, unit information, current rented hash/etc)
+x11_servers = mrr.get_info_algo('x11') #  Get statistics for an algo (suggested price, unit information, current rented hash/etc)
 
-
-
-</code>
+```
