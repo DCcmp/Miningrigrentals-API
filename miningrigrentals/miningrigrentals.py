@@ -107,21 +107,21 @@ class API:
         else:
             return response.get("data")
 
-    def whoami(self):
+    def whoami(self) -> dict:
         """
         GET /whoami
         :return: Test connectivity and return information about you
         """
         return self._api_call(WHOAMI)
 
-    def get_info_algos(self):
+    def get_info_algos(self) -> dict:
         """
         GET /info/algos
         :return: Get all algos and statistics for them (suggested price, unit information, current rented hash/etc)
         """
         return self._api_call(ALGOS)
 
-    def get_info_servers(self):
+    def get_info_servers(self) -> dict:
         """
         GET /info/servers
         :return: Get a list of MRR rig servers.
@@ -218,7 +218,8 @@ class API:
         return self._api_call(ALGOS + algoname)
 
     def get_rig_mine(self, algo_type: str=None,
-                     hashrate: bool=None) -> dict:
+                     hashrate: bool=None
+                     ) -> dict:
         """
         GET /rig/mine
         :param algo_type: Filter on algo -- see /info/algos
@@ -250,7 +251,8 @@ class API:
                    history: bool=None,
                    rig: int=None,
                    start: int=None,
-                   limit: int=None) -> dict:
+                   limit: int=None
+                   ) -> dict:
         """
         GET /rental
         :param rental_type: Type is one of [owner,renter] -- owner means rentals on your rigs, renter means rentals you purchased
@@ -277,7 +279,8 @@ class API:
 
         return self._api_call(RENTAL, params=params)
 
-    def get_rentals_by_id(self, rental_ids: list) -> dict:
+    def get_rentals_by_id(self, rental_ids: list
+                          ) -> dict:
         """
         GET /rental/[ID1];[ID2];...
         :param rental_ids:
