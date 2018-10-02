@@ -63,20 +63,23 @@ class API:
         self.secret = secret
         self.nonce = time.time() * 1000
 
-    def _build_sign_string(self, method: str) -> str:
+    def _build_sign_string(self, method: str
+                           ) -> str:
         string = '{}{}{}'.format(self.key, self.nonce, method)
         return hmac.new(key=self.secret.encode(),
                         msg=string.encode(),
                         digestmod=hashlib.sha1).hexdigest()
 
-    def _build_headers(self, signature: str) -> dict:
+    def _build_headers(self, signature: str
+                       ) -> dict:
         return {XAPISIGN: signature,
                 XAPIKEY: self.key,
                 XAPINONCE: str(self.nonce)}
 
     def _api_call(self, endpoint: str,
                   params: dict=None,
-                  request: str=None) -> dict:
+                  request: str=None
+                  ) -> dict:
         """
         BASE FUNCTION FOR MAKING API CALLS TO MRR
         """
@@ -98,7 +101,11 @@ class API:
 
         headers = self._build_headers(signature)
 
-        return request(url=url, headers=headers, params=params).json()
+        response = request(url=url, headers=headers, params=params).json()
+        if not response.get("success"):
+            raise Exception("API CALL WAS NOT SUCCESSFULL")
+        else:
+            return response.get("data")
 
     def whoami(self):
         """
@@ -122,25 +129,25 @@ class API:
         return self._api_call(SERVERS)
 
     def get_rig(self, algo_type: str,
-                minhours_min: int=None,
-                minhours_max: int=None,
-                maxhours_min: int=None,
-                maxhours_max: int=None,
-                rpi_min: int=None,
-                rpi_max: int=None,
-                hash_min: int=None,
-                hash_max: int=None,
-                hash_type: str=None,
-                price_min: int=None,
-                price_max: int=None,
-                offline: bool=False,
-                rented: bool=False,
-                region_type: str=None,
-                region: bool=None,
-                count: int=100,
-                offset: int=0,
-                orderby: str='score',
-                orderdir: str='asc'
+                minhours_min: int = None,
+                minhours_max: int = None,
+                maxhours_min: int = None,
+                maxhours_max: int = None,
+                rpi_min: int = None,
+                rpi_max: int = None,
+                hash_min: int = None,
+                hash_max: int = None,
+                hash_type: str = None,
+                price_min: int = None,
+                price_max: int = None,
+                offline: bool = False,
+                rented: bool = False,
+                region_type: str = None,
+                region: bool = None,
+                count: int = 100,
+                offset: int = 0,
+                orderby: str = 'score',
+                orderdir: str = 'asc'
                 ) -> dict:
         """
         GET /rig
@@ -284,25 +291,25 @@ class API:
 
     def put_rig(self, rigname: str,
                 servername: str,
-                status: object = str,
-                btc_price: object = str,
-                btc_autoprice: object = bool,
-                btc_minimum: object = str,
-                btc_modifier: object = str,
-                ltc_enabled: object = bool,
-                ltc_price: object = str,
-                ltc_autoprice: object = bool,
-                eth_enabled: object = bool,
-                eth_price: object = str,
-                eth_autoprice: object = bool,
-                dash_enabled: object = bool,
-                dash_price: object = str,
-                dash_autoprice: object = bool,
-                price_type: object = str,
-                minhours: object = float,
-                maxhours: object = float,
-                hash_amount: object = str,
-                hash_type: object = str) -> object:
+                status: str = str,
+                btc_price: str = str,
+                btc_autoprice: bool = None,
+                btc_minimum: str = None,
+                btc_modifier: str = None,
+                ltc_enabled: bool = True,
+                ltc_price: str = None,
+                ltc_autoprice: bool = None,
+                eth_enabled: bool = True,
+                eth_price: str = None,
+                eth_autoprice: bool = None,
+                dash_enabled: bool = True,
+                dash_price: str = None,
+                dash_autoprice: bool = None,
+                price_type: str = 'mh',
+                minhours: float = None,
+                maxhours: float = None,
+                hash_amount: str = None,
+                hash_type: str = 'mh') -> dict:
         """
 
         :param rigname: Name of rig
