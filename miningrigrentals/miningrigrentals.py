@@ -63,23 +63,20 @@ class API:
         self.secret = secret
         self.nonce = time.time() * 1000
 
-    def _build_sign_string(self, method: str
-                           ) -> str:
+    def _build_sign_string(self, method: str) -> str:
         string = '{}{}{}'.format(self.key, self.nonce, method)
         return hmac.new(key=self.secret.encode(),
                         msg=string.encode(),
                         digestmod=hashlib.sha1).hexdigest()
 
-    def _build_headers(self, signature: str
-                       ) -> dict:
+    def _build_headers(self, signature: str) -> dict:
         return {XAPISIGN: signature,
                 XAPIKEY: self.key,
                 XAPINONCE: str(self.nonce)}
 
     def _api_call(self, endpoint: str,
                   params: dict=None,
-                  request: str=None
-                  ) -> dict:
+                  request: str=None) -> dict:
         """
         BASE FUNCTION FOR MAKING API CALLS TO MRR
         """
